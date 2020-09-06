@@ -1,0 +1,253 @@
+/* 设置整体页面的位置和居中 */
+
+body {
+    /* 如果不设为flex布局就会导致居中不生效 */
+    display: flex;
+    /* 设置内容垂直居中 */
+    justify-content: center;
+    /* 设置内容水平居中 */
+    align-items: center;
+    /* 高为98vh 不知到为什么如果设置为100vh会有高度条 */
+    height: 98vh;
+}
+
+
+/* 设置ul为居中的展示框 */
+
+ul.slides {
+    /* 设置为相对定位 */
+    position: relative;
+    /* 设置宽高 */
+    width: 600px;
+    height: 280px;
+    /* 去掉li默认样式 */
+    list-style: none;
+    /* 0边距 */
+    margin: 0;
+    padding: 0;
+    /* 设置背景颜色 */
+    background-color: #fff;
+    /* 将多余的部分隐藏 */
+    overflow: hidden;
+}
+
+
+/* 设置每张的位置和运动动画 */
+
+li.slide {
+    /* 0边距 */
+    margin: 0;
+    padding: 0;
+    /* 宽高继承 */
+    width: inherit;
+    height: inherit;
+    /* 绝对定位 */
+    position: absolute;
+    /* 设置左和上的距离 */
+    top: 0;
+    left: 0;
+    /* 设置为flex布局 */
+    display: flex;
+    /* 垂直居中 */
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 设置字体 */
+    font-family: Helvetica;
+    /* 文字大小 */
+    font-size: 120px;
+    /* 文字颜色 */
+    color: #fff;
+    /* 移动动画 */
+    transition: .5s transform ease-in-out;
+}
+
+
+/* 设置第一张的颜色 */
+
+.slide:nth-of-type(1) {
+    background-color: #fff129;
+}
+
+
+/* 设置第二张的颜色与位置 */
+
+.slide:nth-of-type(2) {
+    background-color: #ff3c00;
+    left: 100%;
+}
+
+
+/* 设置第三张的颜色与位置 */
+
+.slide:nth-of-type(3) {
+    background-color: #2355b9;
+    left: 200%;
+}
+
+
+/* 设置input组件为隐藏状态但任然存在功能 */
+
+input[type="radio"] {
+    /* 隐藏input组件 */
+    display: none;
+}
+
+
+/* 设置标点div的位置 */
+
+.controls-visible {
+    /* 每个点为绝对定位 */
+    position: absolute;
+    /* 设置宽 */
+    width: 100%;
+    /* 设置底边距 */
+    bottom: 12px;
+    /* 设置这个div为居中 */
+    text-align: center;
+}
+
+
+/* 设置点的样式、位置以及默认颜色 */
+
+.controls-visible label {
+    /* 设置为inline-block布局 */
+    display: inline-block;
+    /* 设置宽高 */
+    width: 10px;
+    height: 10px;
+    /* 设置背景颜色 */
+    background-color: #fff;
+    /* border-radius: 50%; */
+    /* 设置外边距 */
+    margin: 0 3px;
+    /* 设置边框 */
+    border: 2px solid #fff;
+}
+
+
+/* :checked的意思是选中，type="radio"只允许有一个为选中状态，当:nth-of-type(x)为:checked时后面的代码才会生效 */
+
+
+/* 轮播点的颜色 */
+
+.slides input[type="radio"]:nth-of-type(1):checked~.controls-visible label:nth-of-type(1) {
+    /* !!!forwards是将动画最后一帧保留下来，否则背景颜色会变会最开始的颜色 */
+    /* 动画改变背景颜色，过程是@keyframes mymove,耗费时间3秒 */
+    animation: mymove 1s ease-in-out forwards;
+}
+
+.slides input[type="radio"]:nth-of-type(2):checked~.controls-visible label:nth-of-type(2) {
+    animation: mymove 1s ease-in-out forwards;
+}
+
+.slides input[type="radio"]:nth-of-type(3):checked~.controls-visible label:nth-of-type(3) {
+    animation: mymove 1s ease-in-out forwards;
+}
+
+
+/* 背景动画的规则 */
+
+@keyframes mymove {
+    0% {
+        background-color: #fff;
+    }
+    100% {
+        background-color: #333;
+    }
+}
+
+
+/* 当:nth-of-type(x)为:checked时执行transform:translatex */
+
+
+/* 轮播图片的移动 */
+
+.slides input[type="radio"]:nth-of-type(1):checked~.slide {
+    /* transform: translatex意思是将设定位置移动到x轴位置 */
+    transform: translatex(0%);
+}
+
+.slides input[type="radio"]:nth-of-type(2):checked~.slide {
+    transform: translatex(-100%);
+}
+
+.slides input[type="radio"]:nth-of-type(3):checked~.slide {
+    transform: translatex(-200%);
+}
+
+
+/* 左右按钮 */
+
+.navigator {
+    /* 将div改为绝对定位 */
+    position: absolute;
+    /* 距离顶部50% */
+    top: 50%;
+    /* 将自身提高一半 */
+    transform: translatey(-50%);
+    /* 设置宽为100% */
+    width: 100%;
+    /* 将层级设为100 */
+    z-index: 100;
+    /* 设定左右20px的内边距 */
+    padding: 0 20px;
+    /* 设定为平均分布 */
+    justify-content: space-between;
+    /* 设定为并排排列 */
+    box-sizing: border-box;
+    /* 将这个div隐藏 */
+    display: none;
+}
+
+
+/* .navigator i {
+  font-size: 32px;
+  color: #333;
+} */
+
+.left {
+    /* 设置了display属性宽度就可以维持 */
+    display: block;
+    /* 设置宽高 */
+    width: 20px;
+    height: 20px;
+    /* 设置边框 */
+    border-bottom: 5px #333333 solid;
+    border-left: 5px #333333 solid;
+    /* 设置边框圆角 */
+    border-radius: 9%;
+    /* 将图形45度角旋转 */
+    transform: rotate(45deg);
+}
+
+.right {
+    /* 设置了display属性宽度就可以维持 */
+    display: block;
+    /* 设置宽高 */
+    width: 20px;
+    height: 20px;
+    /* 设置边框 */
+    border-top: 5px #333333 solid;
+    border-right: 5px #333333 solid;
+    /* 设置边框圆角 */
+    border-radius: 9%;
+    /* 将图形45度角旋转 */
+    transform: rotate(45deg);
+}
+
+
+/* 左右按钮的显示 */
+
+.slides input[type="radio"]:nth-of-type(1):checked~.navigator:nth-of-type(1) {
+    /* 因为.navigator是默认none隐藏的所以将其设为flex就可以显示，并不是说flex带有显示功能 */
+    display: flex;
+}
+
+.slides input[type="radio"]:nth-of-type(2):checked~.navigator:nth-of-type(2) {
+    display: flex;
+}
+
+.slides input[type="radio"]:nth-of-type(3):checked~.navigator:nth-of-type(3) {
+    display: flex;
+}

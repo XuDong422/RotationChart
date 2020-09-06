@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <!-- 将ul作为轮播图的框 -->
+    <ul class="slides">
+        <!-- 所有的轮播操作都根据input的checked属性来改变 -->
+        <input type="radio" id="control-1" name="control" checked>
+        <input type="radio" id="control-2" name="control">
+        <input type="radio" id="control-3" name="control">
+
+        <!--  左右方向键  -->
+        <div class="navigator slide-1">
+            <!-- label标签会将每个点击都会将checked给到点击的那个id为control-点击的input，同时使用函数修改js中存储的i值 -->
+            <label for="control-3" onclick="Left()">
+        <!-- left是用css制作的左方向图标 -->
+        <i class="left"></i>
+      </label>
+            <label for="control-2" onclick="right()">
+        <!-- right是用css制作的右方向图标 -->
+        <i class="right"></i>
+      </label>
+        </div>
+        <div class="navigator slide-2">
+            <label for="control-1" onclick="Left()">
+        <i class="left"></i>
+      </label>
+            <label for="control-3" onclick="right()">
+        <i class="right"></i>
+      </label>
+        </div>
+        <div class="navigator slide-3">
+            <label for="control-2" onclick="Left()">
+        <i class="left"></i>
+      </label>
+            <label for="control-1" onclick="right()">
+        <i class="right"></i>
+      </label>
+        </div>
+
+        <!-- 将每个li做成一个div用以轮播 -->
+        <li class="slide">1</li>
+        <li class="slide">2</li>
+        <li class="slide">3</li>
+
+        <!-- 使用label来作为轮播标签，这样选中自然会带有唯一性 -->
+        <div class="controls-visible">
+            <!-- 每个点击都会将checked给到点击的那个id为control-点击的input -->
+            <label for="control-1"></label>
+            <label for="control-2"></label>
+            <label for="control-3"></label>
+        </div>
+    </ul>
+    <!-- partial -->
+    <script>
+        // 获取control，获取input用来操作checked
+        var control = document.getElementsByName("control");
+        // 获取轮播图展示区域，因为这里获取的是数组，虽然只有一个但是也是数组形式，所以要加[0]
+        var slides = document.getElementsByClassName("slides")[0];
+        // 记录当前的图片在哪个位置
+        var i = 0;
+        // 定时器，每三秒执行time函数
+        var times = setInterval(time, 3000);
+
+        // 此函数通过修改checked状态，来进行轮播
+        function time() {
+            // 执行函数时图片位置加一位
+            i++;
+            // 判断图片是否到尽头了，是就把图片位置改为0
+            if (i > control.length - 1) i = 0;
+            // 将下一张图片设为checked状态，css会自动轮播
+            control[i].checked = "checked";
+        };
+
+        // 当鼠标进入展示区域就停止定时器
+        slides.onmouseover = function() {
+            clearInterval(times);
+        };
+        // 当鼠标离开展示区域就重设定时器
+        slides.onmouseout = function() {
+            times = setInterval(time, 3000);
+        };
+
+        // 左方向按钮执行的函数
+        function Left() {
+            // 图片左轮播那就是将i减少 判断i是否大于0，大于就意味着可以继续i--。
+            if (i > 0) {
+                i--;
+            } else if (i == 0) { // 判断i是否等于0，等于就代表到了第一张图片，将i回拨到最后一张图片
+                i = control.length - 1;
+            }
+        };
+        // 右方向按钮执行的函数
+        function right() {
+            // 图片右轮播那就是将i增加 判断i是否小于图片尽头，小于就意味着可以继续i++。
+            if (i < control.length - 1) {
+                i++;
+            } else if (i == control.length - 1) { // 判断i是否等于图片尽头，等于就代表到了最后一张图片，将i设为第一张图片
+                i = 0;
+            }
+        };
+    </script>
+</body>
+
+</html>
