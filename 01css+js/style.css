@@ -207,7 +207,7 @@ input[type="radio"] {
 } */
 
 .left {
-    /* 设置了display属性宽度就可以维持 */
+    /* 因为i标签的原因设置了display属性宽度才可以维持 */
     display: block;
     /* 设置宽高 */
     width: 20px;
@@ -222,7 +222,7 @@ input[type="radio"] {
 }
 
 .right {
-    /* 设置了display属性宽度就可以维持 */
+    /* 因为i标签的原因设置了display属性宽度才可以维持 */
     display: block;
     /* 设置宽高 */
     width: 20px;
