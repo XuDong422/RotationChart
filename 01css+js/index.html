@@ -71,11 +71,16 @@
 
         // 此函数通过修改checked状态，来进行轮播
         function time() {
-            // 执行函数时图片位置加一位
-            i++;
-            // 判断图片是否到尽头了，是就把图片位置改为0
-            if (i > control.length - 1) i = 0;
-            // 将下一张图片设为checked状态，css会自动轮播
+            // // 执行函数时图片位置加一位
+            // i++;
+            // // 判断图片是否到尽头了，是就把图片位置改为0
+            // if (i > control.length - 1) i = 0;
+            // // 将下一张图片设为checked状态，css会自动轮播
+            // control[i].checked = "checked";
+
+            // 新方法,假设length为3,那以此执行过程为++0=1,1取余3会得1,再循环++1等于2。2取余3得2,++2等于3,3取余3得0。++0等于1,依此循环就不会导致轮播值大于图片长度。
+            i = ++i % control.length;
+            // 修改checked,css会自动改变样式
             control[i].checked = "checked";
         };
 
